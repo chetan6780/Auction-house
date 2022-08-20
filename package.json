@@ -1,0 +1,16 @@
+{
+  "name": "auctions",
+  "version": "1.0.0",
+  "description": "### How to use it",
+  "main": "index.js",
+  "scripts": {
+    "build":"tailwind build house/static/house/src/tw.css -o house/static/house/twstyles.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tailwindcss": "^2.2.16"
+  }
+}
