@@ -4,10 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User
-from .models import Listing
-from .models import Bid
-from .models import Comment
+from .models import Bid, Comment, Listing, User
 
 
 def index(request):
@@ -70,6 +67,7 @@ def register(request):
 
 # ------------------------------------------------------------------------------------------------------------------
 
+
 def close_auction(request, listing_id):
     listing = Listing.objects.get(pk=listing_id)
     listing.is_closed = True
@@ -88,15 +86,17 @@ def closed_listings(request):
 def display_category(request):
     category = request.POST["category"]
     listings = Listing.objects.filter(category=category)
-    listings=set(listings)
+    listings = set(listings)
     context = {
         "listings": listings,
     }
     return render(request, "house/index.html", context)
 
+
 def category_page(request):
-    category=Listing.objects.all()
-    return render(request, "house/category.html",{"category":category,})
+    category = Listing.objects.all()
+    return render(request, "house/category.html", {"category": category, })
+
 
 def comment(request, listing_id):
     user = request.user
