@@ -1,19 +1,22 @@
-{% extends "house/layout.html" %}
-
-{% block body %}
-<div class="cntnr pb-3">
-    <div class="text-center py-1">
-        <h3>All categories</h3>
+{% extends "house/layout.html" %} {% block body %}
+<div style="min-height: 77vh;">
+    <div class="text-center text-indigo-600 text-3xl mt-6 mb-10">
+        All available categories
     </div>
 
-
-    {% for cat in category%}
-    <form action="{% url 'display_category' %}" method="post">
-        {% csrf_token %}
-        <div class="text-center py-1">
-            <input name="category" class="btn" type="submit" value="{{ cat }}" style="width:200px">
-        </div>
-    </form>
-    {% endfor %}
+    <div class="grid grid-cols-4 gap-4 w-3/4 m-auto text-gray-600">
+        {% for cat in category %}
+        <form action="{% url 'display_category' %}" method="post">
+                {% csrf_token %}
+                    <input
+                        name="category"
+                        type="submit"
+                        value="{{ cat }}"
+                        style="width: 200px"
+                        class="text-center bg-white py-6 px-11 border border-gray-300 hover:border-indigo-400 hover:bg-indigo-500 rounded-md text-xl hover:text-white"
+                    />
+        </form>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

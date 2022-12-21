@@ -8,8 +8,8 @@
     <!-- item content -->
     <div class="flex md:flex-row justify-center items-center flex-col pb-8">
         <div class="image flex items-center flex-col mt-6 w-3/4">
-            <span class="text-sm bg-red-500 text-white bg-transparent px-3 py-1 mb-2 rounded-full">{{ listing.category }}</span>
-            <img class="w-11/12 shadow-sm shadow-gray-300 md:w-[550px] rounded-lg h-auto" src="{{ listing.url }}"
+            <span class="text-sm bg-red-500 text-white bg-transparent px-3 py-1 mb-2 rounded-full">#{{ listing.category }}</span>
+            <img class="max-w-11/12 max-h-full shadow-sm shadow-gray-300 md:w-[550px] rounded-lg h-auto" src="{{ listing.url }}"
                 alt="tree">
         </div>
 
@@ -38,8 +38,16 @@
                 </form>
 
                 <div class="w-full flex">
+                    {% if not is_listing_in_watchlist%}
                     <a href="{% url 'add_watchlist' listing.id %}"
-                        class="w-5/12 cursor-pointer border rounded-md py-2 px-8 flex item-center border-md dark:border-gray-800 bg-indigo-600 text-white hover:bg-indigo-800 items-center">Add to Watchlist </a>
+                        class="w-5/12 cursor-pointer border rounded-md py-2 px-8 flex item-center border-md dark:border-gray-800 bg-indigo-600 text-white hover:bg-indigo-800 items-center">Add to Watchlist 
+                    </a>
+                    {% else %}
+                    <a href="{% url 'remove_watchlist' listing.id %}"
+                    class="w-5/12 cursor-pointer border rounded-md py-2 px-2 flex item-center border-md dark:border-gray-800 bg-indigo-600 text-white hover:bg-indigo-800 items-center">Remove from Watchlist 
+                    </a>
+                    {% endif %}
+
 
                     {% if is_owner and not listing.is_closed%}
                     <a id="close-auction" href="{% url 'close_auction' listing.id%}"

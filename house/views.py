@@ -95,6 +95,7 @@ def display_category(request):
 
 def category_page(request):
     category = Listing.objects.all()
+    category = category.values_list('category', flat=True).distinct()
     return render(request, "house/category.html", {"category": category, })
 
 
