@@ -119,12 +119,12 @@
                         </div>
                     </li>
 
+                    {% if user.is_authenticated %}
                     <li>
                         <a id="watchlist-btn" class="md:p-4 py-2 pl-2 block hover:text-blue-600 dark:text-white"
                             href="{% url 'display_watchlist' %}">Watchlist</a>
                     </li>
 
-                    {% if user.is_authenticated %}
                     <li>
                         <a href="{% url 'logout' %}" id="logout-btn" class="btn-md ml-2">
                             <span
@@ -167,8 +167,10 @@
     <!----------------- header end ----------------->
 
     <!----------------- main start ----------------->
-    {% block body %}
-    {% endblock %}
+    <div class="w-full md:w-11/12 m-auto">
+        {% block body %}
+        {% endblock %}
+    </div>
     <!----------------- main end ----------------->
 
     <!----------------- footer start ----------------->

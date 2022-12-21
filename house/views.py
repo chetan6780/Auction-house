@@ -106,25 +106,28 @@ def comment(request, listing_id):
     new_comment.save()
     return HttpResponseRedirect(reverse("display_listing", args=(listing_id, )))
 
-
 def create_listing(request):
-    if request.method == "POST":
-        user = request.user
-        title = request.POST["title"]
-        description = request.POST["description"]
-        image_url = request.POST["image_url"]
-        category = request.POST['category']
+    # if user is logged in 
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            user = request.user
+            title = request.POST["title"]
+            description = request.POST["description"]
+            image_url = request.POST["image_url"]
+            category = request.POST['category']
 
-        # Create new bid
-        bid = Bid(bid=int(request.POST["bid"]), user=user)
-        bid.save()
-        # Create new listing
-        listing = Listing(title=title, category=category, owner=user,
-                          is_closed=False, description=description, bid=bid, url=image_url)
-        listing.save()
+            # Create new bid
+            bid = Bid(bid=int(request.POST["bid"]), user=user)
+            bid.save()
+            # Create new listing
+            listing = Listing(title=title, category=category, owner=user,
+                            is_closed=False, description=description, bid=bid, url=image_url)
+            listing.save()
 
-        return HttpResponseRedirect(reverse("index"))
-    return render(request, "house/create_listing.html")
+            return HttpResponseRedirect(reverse("index"))
+        return render(request, "house/create_listing.html")
+    else:
+        return render(request, "house/login.html")
 
 
 def display_listing(request, listing_id):

@@ -7,89 +7,105 @@
 
     <!-- item content -->
     <div class="flex md:flex-row justify-center items-center flex-col pb-8">
-        <div class="image flex items-center flex-col mt-6">
+        <div class="image flex items-center flex-col mt-6 w-3/4">
             <span class="text-sm bg-red-500 text-white bg-transparent px-3 py-1 mb-2 rounded-full">{{ listing.category }}</span>
-            <img class="w-11/12 shadow-sm shadow-gray-300 md:w-[550px] rounded-lg h-auto"
-            src="{{ listing.url }}" alt="tree">
+            <img class="w-11/12 shadow-sm shadow-gray-300 md:w-[550px] rounded-lg h-auto" src="{{ listing.url }}"
+                alt="tree">
         </div>
 
         <div class="content h-auto md:pl-10">
-            <h1
-                class="text-3xl font-bold text-center text-indigo-800 dark:text-gray-100 md:text-left md:pt-10 my-4">
+            <h1 class="text-3xl font-bold text-center text-indigo-800 dark:text-gray-100 md:text-left md:pt-10 my-4">
                 {{ listing.title }}</h1>
             <p class="text-center px-6 md:px-0 md:w-[600px] md:text-left dark:text-gray-300 break-words mb-4"> {{ listing.description }}</p>
-    <div class="flex flex-col items-center md:items-start py-2">
-    <!-- This will change to alert -->
-    <div
-    class="border rounded-md p-2 border-md border-indigo-500 dark:border-white text-indigo-600 dark:text-white items-center">
-                      Current bid:<span class="text-md text-red-600 font-bold">&#160{{ listing.bid }}&#160</span>   
-                  </div>
+            <div class="flex flex-col items-center md:items-start py-2">
+                <!-- This will change to alert -->
+                {% if listing.is_closed %}
+                <div class="w-4/5 bg-blue-100 text-center border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert" id="won">
+                    <p class="font-bold text-md">{{ listing.bid.user }} won this amazing item!!🥳🎉🎊</p>
+                </div>
+                {% else %}
+                <div
+                    class="border rounded-md p-2 border-md border-indigo-500 dark:border-white text-indigo-600 dark:text-white items-center">
+                    Current bid:<span class="text-md text-red-600 font-bold">&#160{{ listing.bid }}&#160</span>
+                </div>
 
-                  <form action="{% url 'new_bid' listing.id%}" method="post" class="bid my-3 border border-indigo-600 rounded-md bg-indigo-600 hover:bg-indigo-800">
+                <form action="{% url 'new_bid' listing.id%}" method="post"
+                    class="bid my-3 border border-indigo-600 rounded-md bg-indigo-600 hover:bg-indigo-800">
                     {% csrf_token %}
-                      <input class="text-black dark:bg-white rounded-md p-2 active::none" type="number" name="bid" id="bid">
-                      <button type="submit" class="rounded-md pl-2 pr-3 text-white">Bid</button>
-                  </form>
-                  <a href="{% url 'add_watchlist' listing.id %}" class="cursor-pointer border rounded-md py-2 px-8 flex item-center border-md dark:border-gray-800 bg-indigo-600 text-white hover:bg-indigo-800 items-center">
-                      Add to Watchlist
-                  </a>
-              </div>
-          </div>
-      </div>
+                    <input class="text-black dark:bg-white rounded-md p-2 active::none" type="number" name="bid"
+                        id="bid">
+                    <button type="submit" class="rounded-md pl-2 pr-3 text-white">Bid</button>
+                </form>
 
-      <div class="">
-          <div class="bg-yellow-100 border-t border-b border-yellow-400 text-blue-700 px-4 py-3" role="alert" id="running">
-              <p class="font-bold">Currently no one has won this item!</p>
-              <p class="text-sm">You have to bid strictly more than others to win.</p>
-          </div>
-          <div class="hidden bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert" id="won">
-              <p class="font-bold text-center">Congratulations!🥳🎉🎊</p>
-              <p class="text-sm">You won this amazing item! You are the highest bidder.</p>
-          </div>
-      </div>
-      <hr>
+                <div class="w-full flex">
+                    <a href="{% url 'add_watchlist' listing.id %}"
+                        class="w-5/12 cursor-pointer border rounded-md py-2 px-8 flex item-center border-md dark:border-gray-800 bg-indigo-600 text-white hover:bg-indigo-800 items-center">Add to Watchlist </a>
+
+                    {% if is_owner and not listing.is_closed%}
+                    <a id="close-auction" href="{% url 'close_auction' listing.id%}"
+                        class="w-4/12 cursor-pointer border rounded-md flex item-center justify-center border-md dark:border-gray-800 bg-red-600 text-white hover:bg-red-800 items-center">
+                        close listing
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% if not listing.is_closed %}
+    <div class="bg-yellow-100 border-t border-b border-yellow-400 text-blue-700 px-4 py-3" role="alert"
+        id="running">
+        <p class="font-bold">Currently no one has won this item!</p>
+        <p class="text-sm">You have to bid strictly more than others to win.</p>
+    </div>
+
+    <hr>
 
     <!-- comment form -->
-     <div class="flex items-center justify-center mx-8 mt-10 mb-4">
-          <form action="{% url 'comment' listing.id%}" method="post" class="w-full max-w-2xl bg-indigo-600 dark:bg-gray-200 rounded-lg px-4 pt-2 ">
+    <div class="flex items-center justify-center w-full mx-4 mt-10 mb-4">
+        <form action="{% url 'comment' listing.id%}" method="post"
+            class="w-full max-w-2xl bg-indigo-600 dark:bg-gray-200 rounded-lg px-4 pt-2 ">
             {% csrf_token %}
-              <div class="flex flex-wrap -mx-3 mb-6">
-                  <h2 class="px-4 pt-3 pb-2 text-white dark:text-indigo-800 text-lg">Add a new comment</h2>
-                  <div class="w-full md:w-full px-3 mb-2 mt-2">
-                      <textarea
-                          class="bg-gray-100 rounded border border-indigo-400 leading-normal resize-none w-full h-fit py-2 px-3 font-normal text-black placeholder-gray-500 focus:outline-none focus:bg-white"
-                          name="comment" placeholder='Type Your Comment' required></textarea>
-                  </div>
-                  <div class="w-full md:w-full flex items-start px-3">
-                      <div class="-mr-1">
-                          <input type='submit'
-                              class="cursor-pointer bg-white text-indigo-800 dark:bg-indigo-600 hover:bg-gray-200 dark:hover:bg-indigo-800 dark:text-white font-medium py-1 px-4 border border-gray-500 rounded-md tracking-wide mr-1"
-                              value='Post Comment'>
-                      </div>
-                  </div>
-              </div>
-          </form>
-      </div>
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <h2 class="px-4 pt-3 pb-2 text-white dark:text-indigo-800 text-lg">Add a new comment</h2>
+                <div class="w-full md:w-full px-3 mb-2 mt-2">
+                    <textarea
+                        class="bg-gray-100 rounded border border-indigo-400 leading-normal resize-none w-full h-fit py-2 px-3 font-normal text-black placeholder-gray-500 focus:outline-none focus:bg-white"
+                        name="comment" placeholder='Type Your Comment' required></textarea>
+                </div>
+                <div class="w-full md:w-full flex items-start px-3">
+                    <div class="-mr-1">
+                        <input type='submit'
+                            class="cursor-pointer bg-white text-indigo-800 dark:bg-indigo-600 hover:bg-gray-200 dark:hover:bg-indigo-800 dark:text-white font-medium py-1 px-4 border border-gray-500 rounded-md tracking-wide mr-1"
+                            value='Post Comment'>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% endif %}
 
-      <!-- Comment section -->
-      <div class="antialiased mx-auto w-5/6 md:w-1/2">
-          <h3 class="mb-4 text-xl font-semibold text-gray-900 dark:text-gray-100">Comments</h3>
-          <div class="space-y-4">
-                {% for comment in comments %}
-              <div class="flex">
-                  <div class="flex-shrink-0 mr-3">
-                      <img class="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10 bg-white p-1"
-                          src="https://img.icons8.com/material-rounded/24/000000/user-group-man-man.png" />
-                  </div>
-                  <div
-                      class="flex-1 border rounded-lg border-gray-400 dark:border-gray-600 px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-                      <strong>{{ comment.writer }}</strong> <span class="text-xs text-gray-400">3:34 PM</span>
-                      <p class="text-sm text-gray-700 dark:text-gray-300">{{ comment.text }}
-                      </p>
-                  </div>
-              </div>
-                {% endfor %}
-              <!-- <div class="flex">
+
+    <!-- Comment section -->
+    <div class="antialiased mx-auto w-5/6 md:w-1/2">
+        <h3 class="mb-4 text-xl font-semibold text-gray-900 dark:text-gray-100">Comments</h3>
+        <div class="space-y-4">
+            {% for comment in comments %}
+            <div class="flex">
+                <div class="flex-shrink-0 mr-3">
+                    <img class="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10 bg-white p-1"
+                        src="https://img.icons8.com/material-rounded/24/000000/user-group-man-man.png" />
+                </div>
+                <div
+                    class="flex-1 border rounded-lg border-gray-400 dark:border-gray-600 px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+                    <strong>{{ comment.writer }}</strong> <span class="text-xs text-gray-400">3:34 PM</span>
+                    <p class="text-sm text-gray-700 dark:text-gray-300">{{ comment.text }}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+            <!-- <div class="flex">
                   <div class="flex-shrink-0 mr-3">
                       <img class="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10 bg-white p-1"
                           src="https://img.icons8.com/material-rounded/24/000000/user-group-man-man.png" />
@@ -120,90 +136,8 @@
                       </p>
                   </div>
               </div> -->
-          </div>
+        </div>
     </div>
 </main>
-
-<!-- <div class="container">
-      {% if listing.is_closed and user == listing.bid.user %}
-      <div class="alert alert-success" role="alert">
-            Congratulations {{ listing.bid.user }}, you won the Auction!
-      </div>
-      {% endif %}
-
-      {% if is_owner and not listing.is_closed%}
-      <a class="btn btn-danger float-right" id="close-auction" href="{% url 'close_auction' listing.id%}"> Close Auction
-      </a>
-      {% endif %}
-
-      <div class="container">
-            {% if message %}
-            {% if updated %}
-            <div class="alert alert-success" role="alert">
-                  {{ message }}
-            </div>
-            {% else %}
-            <div class="alert alert-danger" role="alert">
-                  {{ message }}
-            </div>
-            {% endif %}
-            {% endif %}
-
-            <span class="badge badge-pill badge-warning">{{ listing.category }}</span>
-            <h1>{{listing.title }}</h1>
-            <div class="text-center">
-                  <img src="{{ listing.url }}" class="img-fluid" alt="Listing picture"><br><br>
-                  <p> {{ listing.description }} </p>
-                  <p id="bid">Current bid: <span id="price">{{ listing.bid }}</span></p>
-                  {% if is_listing_in_watchlist%}
-                  <a class="btn btn-danger" href="{% url 'remove_watchlist' listing.id %}"> Remove from watchlist </a>
-                  {% else %}
-                  <a class="btn btn-success" href="{% url 'add_watchlist' listing.id %}"> Add to watchlist </a>
-                  {% endif %}
-            </div>
-
-            {% if user.is_authenticated and not listing.is_closed%}
-            <form action="{% url 'new_bid' listing.id%}" method="post">
-                  {% csrf_token %}
-                  <label>New Bid:</label>
-                  <div class="row">
-                        <div class="col-3">
-                              <input type="text" name="bid" class="form-control" id="exampleFormControlInput1"
-                                    style="width:100%">
-                        </div>
-                        <div class="col-9">
-                              <button id="bid-button" class="btn btn-outline-primary" type="submit">Make a new
-                                    bid</button>
-                        </div>
-                  </div>
-            </form>
-
-
-            <form action="{% url 'comment' listing.id%}" method="post">
-                  {% csrf_token %}
-                  <div class="card card-info">
-                        <textarea name="comment" placeholder="Write your comment here!"
-                              class="pb-cmnt-textarea"></textarea>
-                        <input type="submit" class="btn btn-primary m-3" style="width:20%" type="button"></button>
-                  </div>
-            </form>
-            {% endif %}
-      </div>
-</div>
-<div class="cntnr mt-5" style="width:85%">  
-      <h2 class="pt-2 pl-2 pb-0 mb-1">Comments </h2>
-      {% for comment in comments %}
-      <div class="card my-2">
-            <h5 class="card-header">
-                  Written by <strong>{{comment.writer}}</strong>
-            </h5>
-            <div class="card-body">
-                  <p class="card-text">{{comment.text}}</p>
-            </div>
-      </div>
-      {% endfor %}
-      <br>
-</div>
-<br><br> -->
 
 {% endblock %}
