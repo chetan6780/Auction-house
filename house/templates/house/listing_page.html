@@ -1,4 +1,5 @@
 {% extends "house/layout.html" %}
+{% load static %}
 
 {% block body %}
 
@@ -29,15 +30,29 @@
                     Current bid:<span class="text-md text-red-600 font-bold">&#160{{ listing.bid }}&#160</span>
                 </div>
 
-                <form action="{% url 'new_bid' listing.id%}" method="post"
-                    class="bid my-3 border border-indigo-600 rounded-md bg-indigo-600 hover:bg-indigo-800">
-                    {% csrf_token %}
-                    <input class="text-black dark:bg-white rounded-md p-2 active::none" type="number" name="bid"
+                <div class="w-4/5 flex">
+                    <form action="{% url 'new_bid' listing.id%}" method="post"
+                    class="w-2/3 my-3 border border-indigo-600 rounded-md bg-indigo-600 hover:bg-indigo-800">
+                        {% csrf_token %}
+                        <input class="w-4/5 text-black dark:bg-white rounded-md p-2" type="number" name="bid"
                         id="bid">
-                    <button type="submit" class="rounded-md pl-2 pr-3 text-white">Bid</button>
-                </form>
+                        <button type="submit" class="rounded-md pl-2 text-white">Bid</button>
+                    </form>
+                    
+                    <!-- update button and delete button-->
+                    {% if is_owner and not listing.is_closed%}
+                    <a href="{% url 'update_listing' listing.id%}"
+                        class="cursor-pointer py-2 pl-3 pr-2 flex item-center border-md dark:border-gray-800 text-white items-center"><img class="w-9" src="{% static 'house/edit.png' %}" alt="edit button">
+                    </a>
+                    <a hidden href="https://www.flaticon.com/free-icons/edit" title="edit icons">Edit icons created by Freepik - Flaticon</a>
+                    <a href="{% url 'delete_listing' listing.id%}"
+                        class=" cursor-pointer py-2 px-1 flex item-center border-md dark:border-gray-800 text-white items-center"><img class="w-10" src="{% static 'house/delete.png' %}"alt="delete button">
+                    </a>
+                    <a hidden href="https://www.flaticon.com/free-icons/recycle-bin" title="recycle-bin icons">Recycle-bin icons created by Uniconlabs - Flaticon</a>
+                    {% endif %}
+            </div>
 
-                <div class="w-full flex">
+                <div class="w-full flex justify-center md:justify-start">
                     {% if not is_listing_in_watchlist%}
                     <a href="{% url 'add_watchlist' listing.id %}"
                         class="w-5/12 cursor-pointer border rounded-md py-2 px-8 flex item-center border-md dark:border-gray-800 bg-indigo-600 text-white hover:bg-indigo-800 items-center">Add to Watchlist 
@@ -47,7 +62,6 @@
                     class="w-5/12 cursor-pointer border rounded-md py-2 px-2 flex item-center border-md dark:border-gray-800 bg-indigo-600 text-white hover:bg-indigo-800 items-center">Remove from Watchlist 
                     </a>
                     {% endif %}
-
 
                     {% if is_owner and not listing.is_closed%}
                     <a id="close-auction" href="{% url 'close_auction' listing.id%}"
@@ -68,7 +82,6 @@
         <p class="text-sm">You have to bid strictly more than others to win.</p>
     </div>
 
-    <hr>
 
     <!-- comment form -->
     <div class="flex items-center justify-center w-full mx-4 mt-10 mb-4">

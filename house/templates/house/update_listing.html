@@ -1,0 +1,58 @@
+{% extends "house/layout.html" %}
+
+{% block body %}
+
+<!-- 2. Create-listing -->
+<main id="create-listing" class="flex justify-center">
+    <div class="container flex justify-center p-14">
+        <div class="-m-8 p-4 md:w-3/4 bg-white rounded-lg border border-gray-200 shadow-md ">
+            <form class="space-y-6" action="{% url 'update_listing_item' listing.id%}" method="post">
+                {% csrf_token %}
+                <h3 class="text-xl text-center font-medium text-indigo-900 capitalize">Update listing</h3>
+                <div>
+                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 ">Title</label>
+                    <input type="text" name="title" id="title"
+                        class="bg-gray-50 border border-indigo-600 text-indigo-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Title to display" required="" value="{{ listing.title }}">
+                </div>
+                <div>
+                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
+                    <textarea
+                        class="bg-gray-50 border border-indigo-600 text-indigo-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        name="description" id="description" rows="3" placeholder="Enter the description">{{ listing.description }}</textarea>
+                </div>
+                <div class="flex justify-around flex-col md:flex-row">
+                    <div class="md:w-1/2">
+                        <label for="category" class="block mb-2 text-sm font-medium text-gray-900 ">Category</label>
+                        <input type="text" name="category" id="category"
+                            class="bg-gray-50 border border-indigo-600 text-indigo-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 capitalize "
+                            placeholder="Painting" required="" value="{{ listing.category }}">
+                    </div>
+                    <div class="md:w-1/2" aria-disabled="update disable">
+                        <label for="bid" class="block mb-2 text-sm font-medium text-gray-500 mt-4 md:mt-0">Starting
+                            bid</label>
+                        <input disabled type="number" name="bid" id="bid"
+                            class="bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                            placeholder="1000" required="">
+                    </div>
+                </div>
+                <div>
+                    <label for="url" class="block mb-2 text-sm font-medium text-gray-900 ">Image URL</label>
+                    <input type="url" name="image_url" id="image_url"
+                        class="bg-gray-50 border border-indigo-600 text-indigo-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg" required=""
+                        value="{{ listing.url }}">
+                </div>
+                <input type="submit" value="Update"
+                    class="text-white shadow-md shadow-indigo-300 hover:shadow-sm hover:shadow-indigo-50 bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center capitalize"></input>
+                <div class="text-sm font-medium text-gray-500 ">
+                    By creating new listing you are agree to our <a href="#"
+                        class="text-blue-700 hover:underline ">terms & conditions.</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<!-- Create-listing end -->
+
+{% endblock %}

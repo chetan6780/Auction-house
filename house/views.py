@@ -82,6 +82,31 @@ def closed_listings(request):
     }
     return render(request, "house/closed_listing.html", context)
 
+def update_listing(request, listing_id):
+    # go to create listing page and update values
+    listing = Listing.objects.get(pk=listing_id)
+    print(listing.description)
+    context = {
+        "listing": listing,
+        "is_update": True
+    }
+    return render(request, "house/update_listing.html", context)
+
+def update_listing_item(request, listing_id):
+    listing = Listing.objects.get(pk=listing_id)
+    # update listing item
+    listing.title = request.POST["title"]
+    listing.description = request.POST["description"]
+    listing.url = request.POST["image_url"]
+    listing.category = request.POST['category']
+    listing.save()
+    return HttpResponseRedirect(reverse("display_listing", args=(listing_id, )))
+
+
+def delete_listing(request, listing_id):
+    listing = Listing.objects.get(pk=listing_id)
+    listing.delete()
+    return HttpResponseRedirect(reverse("index"))
 
 def display_category(request):
     category = request.POST["category"]
