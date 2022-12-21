@@ -85,10 +85,12 @@ def closed_listings(request):
 
 def display_category(request):
     category = request.POST["category"]
-    listings = Listing.objects.filter(category=category)
-    listings = set(listings)
+    # listings = Listing.objects.filter(category=category)
+    listings = Listing.objects.filter(category=category, is_closed=False)
     context = {
         "listings": listings,
+        "is_category_page": True,
+        "category": category
     }
     return render(request, "house/index.html", context)
 
