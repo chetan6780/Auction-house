@@ -1,1 +1,1 @@
-web: gunicorn auctions.wsgi
+web: gunicorn auctions.wsgi --log-file -
