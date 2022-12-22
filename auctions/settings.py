@@ -131,5 +131,7 @@ AUTH_USER_MODEL = 'house.User'
 
 # csrf for railway
 CSRF_TRUSTED_ORIGINS = [
-    'https://auction2.up.railway.app/'
+    # 'https://auction2.up.railway.app/'
+    # trust all
+    '*'
 ]
