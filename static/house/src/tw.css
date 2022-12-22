@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+
+.btn-md{
+    @apply relative inline-flex items-center justify-center m-2 overflow-hidden text-sm font-medium rounded-lg bg-gradient-to-br from-indigo-500 to-blue-500 text-white focus:ring-1 focus:ring-purple-200;
+}
+
+@tailwind utilities;
+
