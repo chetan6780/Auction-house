@@ -1,4 +1,4 @@
-# Auctions
+# auction-house
 
 ### How to use it
 
@@ -11,7 +11,7 @@
 -   **Winner** will able to see message in the lising of that perticular item.
 -   Have **fun** bidding!😃🤟
 
-### Click <a href="https://auctionscom.herokuapp.com/">here</a> to open the auctions.
+### Click <a href="https://auction2.up.railway.app/">here</a> to open the auctions.
 
 # How to set up on local machine
 
