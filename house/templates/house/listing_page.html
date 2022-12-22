@@ -30,6 +30,8 @@
                     Current bid:<span class="text-md text-red-600 font-bold">&#160{{ listing.bid }}&#160</span>
                 </div>
 
+                <!-- if user logged in -->
+                {% if user.is_authenticated %}
                 <div class="w-4/5 flex">
                     <form action="{% url 'new_bid' listing.id%}" method="post"
                     class="w-2/3 my-3 border border-indigo-600 rounded-md bg-indigo-600 hover:bg-indigo-800">
@@ -50,7 +52,7 @@
                     </a>
                     <a hidden href="https://www.flaticon.com/free-icons/recycle-bin" title="recycle-bin icons">Recycle-bin icons created by Uniconlabs - Flaticon</a>
                     {% endif %}
-            </div>
+                </div>
 
                 <div class="w-full flex justify-center md:justify-start">
                     {% if not is_listing_in_watchlist%}
@@ -70,6 +72,8 @@
                     </a>
                     {% endif %}
                 </div>
+                {% endif %}
+
                 {% endif %}
             </div>
         </div>
@@ -120,7 +124,7 @@
                 </div>
                 <div
                     class="flex-1 border rounded-lg border-gray-400 dark:border-gray-600 px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-                    <strong>{{ comment.writer }}</strong> <span class="text-xs text-gray-400">3:34 PM</span>
+                    <strong>{{ comment.writer }}</strong>
                     <p class="text-sm text-gray-700 dark:text-gray-300">{{ comment.text }}
                     </p>
                 </div>
