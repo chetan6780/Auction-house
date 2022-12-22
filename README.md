@@ -1,17 +1,22 @@
 # auction-house
 
-### How to use it
+Inspired by [History TV18's show "Baggage Battles"](https://www.historyindia.com/show/baggage-battles).
 
--   **Register** yourself if you are new here.(Please use good username).
--   **Login** to your account if not already loged in.
+## How it works?
+
+-   **Register** yourself if you are new here.(use good username).
+-   **Login** to your account if not already logged in.
 -   Select the item which you liked and **bid** on it.
 -   Make sure that your bid is **high enough**.
--   You can comment in **comment section** of the perticular item.
--   After owener close the Auction the user with **_highest bid_** will win.
--   **Winner** will able to see message in the lising of that perticular item.
+-   You can comment in **comment section** of the particular item.
+-   After owner close the Auction the user with **_highest bid_** will win.
+-   **Winner** will able to see message in the listing of that item.
 -   Have **fun** bidding!😃🤟
 
-### Click <a href="https://auction2.up.railway.app/">here</a> to open the auctions.
+#### <a href="https://auction2.up.railway.app/">Open the auction and Let the battle begin.</a>
+
+---
+
 
 # How to set up on local machine
 
@@ -61,4 +66,3 @@ For pipenv you will not see any `(env)` in front of the propt._
 ```
 
 The application should be running on `http://127.0.0.1:8000/`
-
