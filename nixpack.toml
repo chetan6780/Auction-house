@@ -18,3 +18,5 @@ tailwindcss = "^2.2.16"
 # The build instructions for the project
 [build]
 script = "python -m pip install -r requirements.txt && npm install && npm run build"
+
+providers = ['...', 'python']
