@@ -17,7 +17,6 @@ Inspired by [History TV18's show "Baggage Battles"](https://www.historyindia.com
 
 ---
 
-
 # How to set up on local machine
 
 ## Pre-setup
