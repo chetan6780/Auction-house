@@ -1,6 +1,6 @@
 # AUCTION-HOUSE
 
-Inspired by [History TV18's show "Baggage Battles"](https://www.historyindia.com/show/baggage-battles).
+Inspired by [History TV18's show "Baggage Battles"](https://www.historyindia.com/show/baggage-battles)
 
 ## How it works?
 
