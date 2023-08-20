@@ -65,4 +65,3 @@ For pipenv you will not see any `(env)` in front of the propt._
 ```
 
 The application should be running on `http://127.0.0.1:8000/`
-
