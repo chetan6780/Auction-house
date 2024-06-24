@@ -65,3 +65,15 @@ For pipenv you will not see any `(env)` in front of the propt._
 ```
 
 The application should be running on `http://127.0.0.1:8000/`
+
+## Preview
+
+![1](https://poly-screenshots.wellfound.com/Project/0d/1367298/f8c5f8d598fd769d4840b3a51081cda0-original.png)
+![2](https://poly-screenshots.wellfound.com/Project/0d/1367298/5b9ef5d4d5cb1561b59c85152b78cc47-original.png)
+![3](https://poly-screenshots.wellfound.com/Project/0d/1367298/650db39d04e20573760a8c4886edcefd-original.png)
+![4](https://poly-screenshots.wellfound.com/Project/0d/1367298/0518eb8db85378d25ceae16c3e602f6d-original.png)
+![5](https://poly-screenshots.wellfound.com/Project/0d/1367298/7c953349bec7dea06bdd072bd8152798-original.png)
+![6](https://poly-screenshots.wellfound.com/Project/0d/1367298/5a45f408965e848cbaceab5c8c88d98e-original.png)
+![7](https://poly-screenshots.wellfound.com/Project/0d/1367298/d4636ae87cd535f79e7f8900ac4e4aa0-original.png)
+![8](https://poly-screenshots.wellfound.com/Project/0d/1367298/5611fc7ad60f2b6e99e462ab458ed7da-original.png)
+![9](https://poly-screenshots.wellfound.com/Project/0d/1367298/8f89da67e5ed65b75a265035cde1eca6-original.png)
